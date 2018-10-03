@@ -1,0 +1,7 @@
+.button-pair > button {
+  font-size: 15px;
+}
+
+.button-pair button:first-of-type {
+  margin-right: 5px;
+}

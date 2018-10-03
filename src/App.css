@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald|Roboto");
+@import "./components/Factory/style.css";
+@import "./components/ButtonPair/style.css";
+@import "./components/NumberRangeControl/style.css";
+
+.main {
+  margin: 5vh 15vw;
+}
+
+.create-factory-btn {
+  border: solid 1px grey;
+  font-size: 40px;
+  color: #4793ff;
+  height: 90px;
+  background-color: white;
+  transition: background-color 0.2s, font-size 0.1s, border-radius 0.2s;
+  -webkit-transition: background-color 0.2s, font-size 0.1s, border-radius 0.2s;
+  -moz-transition: background-color 0.2s, font-size 0.1s, border-radius 0.2s;
+  -ms-transition: background-color 0.2s, font-size 0.1s, border-radius 0.2s;
+  -o-transition: background-color 0.2s, font-size 0.1s, border-radius 0.2s;
+}
+
+.create-factory-btn:hover {
+  font-size: 80px;
+  background-color: #4793ff;
+  color: white;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}

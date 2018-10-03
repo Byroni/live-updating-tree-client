@@ -1,0 +1,65 @@
+.factory {
+  border: solid 1px black;
+  margin-bottom: 15px;
+  font-size: 25px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.factory .header {
+  background-color: white;
+  padding: 10px 5%;
+  border-bottom: solid 1px #4793ff;
+  color: #4793ff;
+  border-radius: 10px 10px 0 0;
+  -webkit-border-radius: 10px 10px 0 0;
+  -moz-border-radius: 10px 10px 0 0;
+  -ms-border-radius: 10px 10px 0 0;
+  -o-border-radius: 10px 10px 0 0;
+}
+
+.factory .header .display-name {
+  transition: border 0.1s;
+  border: solid 1px white;
+  cursor: default;
+  margin-right: 10px;
+  -webkit-transition: border 0.1s;
+  -moz-transition: border 0.1s;
+  -ms-transition: border 0.1s;
+  -o-transition: border 0.1s;
+}
+
+.factory .children {
+  padding: 10px 10px;
+  color: white;
+  font-size: 20px;
+  background-color: #ffb347;
+  border-top: solid 1px #ffb347;
+  border-bottom: solid 1px #ffb347;
+  border-radius: 0 0 10px 10px;
+  -webkit-border-radius: 0 0 10px 10px;
+  -moz-border-radius: 0 0 10px 10px;
+  -ms-border-radius: 0 0 10px 10px;
+  -o-border-radius: 0 0 10px 10px;
+}
+
+.factory .children li {
+  border: solid 1px white;
+  padding: 10px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.factory .header .editable {
+  margin-right: 10px;
+}
+
+.number-range-control {
+  right: 10%;
+}
