@@ -2,6 +2,7 @@ import Factory from "./components/Factory";
 import React, { Component } from "react";
 import update from "immutability-helper";
 import connect, { emit } from "./helpers/socket";
+import { SERVER_URL } from "./helpers/constants";
 import "./App.css";
 
 class App extends Component {
@@ -23,7 +24,7 @@ class App extends Component {
 
     connect(
       // "http://localhost:5000/",
-      "https://passport-challenge-server.herokuapp.com/",
+      SERVER_URL,
       this.eventHandler
     );
   }
@@ -48,16 +49,11 @@ class App extends Component {
       });
       this.setState({ tree: state });
     },
-    handleChangeFactoryName: (id, factory) => {
-      let state = update(this.state.tree, {
-        root: {
-          [id]: {
-            $set: factory
-          }
-        }
-      });
-
-      this.setState({ tree: state });
+    handleChangeFactoryName: tree => {
+      this.setState({ tree });
+    },
+    handleError: err => {
+      console.log(err);
     }
   };
 

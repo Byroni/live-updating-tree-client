@@ -44,6 +44,7 @@ class Factory extends Component {
 
   changeFactoryName() {
     this.props.handleEmit("changeFactoryName", {
+      id: this.props.factory.id,
       name: this.state.name
     });
     this.flipEditable();

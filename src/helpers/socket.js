@@ -10,6 +10,8 @@ export default function connect(url, eventHandler) {
   socket.on("generateChildren", eventHandler.handleGenerateChildren);
 
   socket.on("changeFactoryName", eventHandler.handleChangeFactoryName);
+
+  socket.on("onError", eventHandler.handleError);
 }
 
 export function emit(event, payload) {
