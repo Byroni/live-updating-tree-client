@@ -15,8 +15,6 @@ before_script:
 script:
   - npm install
   - npm run build
-after_script:
-  - cd build/
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
