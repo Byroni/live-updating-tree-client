@@ -44,7 +44,6 @@ class Factory extends Component {
 
   changeFactoryName() {
     this.props.handleEmit("changeFactoryName", {
-      id: this.props.factory.id,
       name: this.state.name
     });
     this.flipEditable();
@@ -118,7 +117,7 @@ class Factory extends Component {
       <li className="factory flex-column">
         {this.renderFactoryHeader()}
         <ul className="children flex-row flex-justify-space-around flex-wrap">
-          {this.renderChildren()}
+          {this.props.factory.children != null && this.renderChildren()}
         </ul>
       </li>
     );

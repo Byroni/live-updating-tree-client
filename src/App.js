@@ -22,8 +22,8 @@ class App extends Component {
     };
 
     connect(
-      // "http://localhost:5000/",
-      "https://passport-challenge-server.herokuapp.com/",
+      "http://localhost:5000/",
+      // "https://passport-challenge-server.herokuapp.com/",
       this.eventHandler
     );
   }

@@ -20,12 +20,14 @@ class NumberRangeControl extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      // TODO: should only be up to 15
-      numNodes: this.props.factory.children.length,
-      lowerBound: Math.min(...this.props.factory.children),
-      upperBound: Math.max(...this.props.factory.children)
-    });
+    if (this.props.factory.children != null) {
+      this.setState({
+        // TODO: should only be up to 15
+        numNodes: this.props.factory.children.length,
+        lowerBound: Math.min(...this.props.factory.children),
+        upperBound: Math.max(...this.props.factory.children)
+      });
+    }
   }
 
   validate(key) {
