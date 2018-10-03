@@ -68,8 +68,15 @@ class NumberRangeControl extends Component {
     });
   }
 
+  handleConstraints() {
+    if (parseInt(this.state.lowerBound) > parseInt(this.state.upperBound)) {
+      this.setState({ lowerBound: 1, upperBound: 10 });
+    }
+  }
+
   save() {
     this.handleEmptyInput(["numNodes", "lowerBound", "upperBound"]);
+    this.handleConstraints();
     this.flipEditable();
   }
 
