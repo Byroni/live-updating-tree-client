@@ -24,3 +24,4 @@ deploy:
   bucket: "passport-tree"
   skip_cleanup: true
   region: $AWS_DEFAULT_REGION
+  local_dir: build
