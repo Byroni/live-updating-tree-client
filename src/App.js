@@ -24,8 +24,8 @@ class App extends Component {
     };
 
     connect(
-      // SERVER_URL,
-      "http://localhost:5000",
+      SERVER_URL,
+      // "http://localhost:5000",
       this.eventHandler
     );
 
