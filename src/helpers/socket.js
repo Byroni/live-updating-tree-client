@@ -2,7 +2,7 @@ import openSocket from "socket.io-client";
 
 let socket;
 
-export default function connct(url, eventHandler) {
+export default function connect(url, eventHandler) {
   socket = openSocket(url);
 
   socket.on("getTree", eventHandler.handleGetTree);
