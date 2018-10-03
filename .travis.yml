@@ -14,7 +14,6 @@ before_script:
   - export CI=false
 script:
   - npm install
-  - npm test
   - npm run build
 deploy:
   provider: s3
