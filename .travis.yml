@@ -2,27 +2,21 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-  # LTS version
   - "8.0"
-notifications:
-  email:
-    on_success: change # only if status change from fail to success
-    on_failure: always # if there is a fail
-    recipients:
-      - sumn2u@gmail.com
 cache:
   directories:
     - node_modules
 install:
   - npm install
-  - npm i -g react-deploy-cli
 before_script:
   - export RELEASE_HEAD=$(git rev-parse --short HEAD | cut -c1-7)
   - export RELEASE_HEAD_LONG=$(git rev-parse HEAD)
   - export CI=false
 deploy:
+  provider: s3
+  access_key_id:
+    secure: "Ed9nYZga37P9zMew+PRiPueS5gvclJ/NT9h5TOR8F8AbZuU/DBr706MSm+LgK58bk00bfCmyZEuxgnGErwhPmDvphScFnXIn01uI08vA5Sr3RxpAUpFBBjIwlwIAf13FNUYKK2bkLeCCt/gOTxZ3pGJib89BYIhyNvholAJSbaP9lWwefVtCzVTvzHxFWY0uol2KqNFYyuERcqwKph82T6gklDlsiAVT0n8YFoYjfbLyDCWd0lVKKvXBtfoWmgaA4m00AnxxYFV7QLm/NeLXTKkoVResz/Iy0zbKuCzPlxPc87PKQxj9Z+x8+rmYb0JFfv4km0GaWNiQzbK7HzHSdSRWKL8SuV5isUug3PZbI2hi9EMzXehMoK9m1SlIr78BiwJkbCaUySodeu0SrQUP1B4nQDDoC9u2uZIawM09heNdfVbrK023JQOGgDmSvMw84//HSB5KU0Wx5q9QQu6s+oUbkmGJVau1elsbWC5JKgIcNX9SDYFizL5WitSUKthsLa0Og0fYpDBxYpQq1DfJDSIdLyQmHlTgEe9TEoY0Czcy0Yr7QEEn0CZqUjsYngWavIhZcrB4J81f597/CDsIzVcXy5jh0G+HycA97Vrh1AlNHZjs818YSY7HRYpCFWPfnLyXwxWwlBBpLnkhAMfaoNocaoC2exqhLqZhQA+ifWg="
+  secret_access_key:
+    secure: "L2F2errEt8jhfhkj0YlTXE4ukjqVr2Q2WD8zDKGESVrWfWr0dVUzppxX58tBnjwX4sbj24dlmvVhKiYPV1vfXBTQPrqXpK4da1OFYx5XVS0h/axkIRVFkK29chORvMc1OfRg82ffb6HmcMBJHBmeRpgk+N5wb4z6zO7wqDozNspTpBpsWmxsDOSi04qzV8BSoa3uydINVhuWLOSv8euEQDOBC5onndQ7IAVzXwE8oT5fccZw1GeUt1EPIiQTFkIXHfTAsx9l/xBLHE3wmJFf3uaGmVbd95mPOemQgJdXBLcGfoEDBb3GX6ZOl7dux0z61y3O3vAerRgXs7el/06p92xEWMvHAdSlEmmRRvg1UfXyPvZlK9zKmjYe25GeV1XQM/I9EzWIBXaIz1GmjOPUMgyFUzjl6anayXBEuCqYHPISaZrzhLYLnpvVJ3652t/QWaNk/dsl3odk1ACKRvVwTzzs59QjMmBXuLUD+xEo5N5XWVM9ZcQ1tSmPkWg1eI01eyx23Ra/ChdnQh19Q9jE9GO8WnPeXclmiEmdXnVSqkSSuPoGijYG9LjGRBAJGWmVRYGdKwTD5Q6VSb+XfaxEwwaAFufrrwY8SCTfxwaqTv1UOpJlU7Xay9e72nyZPEAySx+szH87VFGm2TfeZcM1xEfIDM6fFZ9Ip9V8vyfkaAA="
+  bucket: passport-tree
   skip_cleanup: true
-  provider: script
-  script: react-deploy deploy $TRAVIS_BRANCH && react-deploy list $TRAVIS_BRANCH && react-deploy activate $RELEASE_HEAD $TRAVIS_BRANCH
-  on:
-    branch: ["master"]
