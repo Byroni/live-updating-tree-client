@@ -7,11 +7,9 @@ export default function connect(url, eventHandler) {
 
   socket.on("getTree", eventHandler.handleGetTree);
 
-  socket.on("generateChildren", eventHandler.handleGenerateChildren);
-
-  socket.on("changeFactoryName", eventHandler.handleChangeFactoryName);
-
   socket.on("onError", eventHandler.handleError);
+
+  socket.on("unlockGenerateButton", eventHandler.handleUnlockGenerateButton);
 }
 
 export function emit(event, payload) {

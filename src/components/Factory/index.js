@@ -23,15 +23,20 @@ class Factory extends Component {
     this.input = null;
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.input != null) this.input.focus();
+
+    if (prevProps.factory.name !== this.props.factory.name)
+      this.setState({ name: this.props.factory.name });
   }
 
+  //  Flips editable bool state property
   flipEditable() {
     this.setState(prev => {
       return { editable: !prev.editable };
     });
   }
+
   renderChildren() {
     return this.props.factory.children.map((child, i) => {
       return <li key={i}>{child}</li>;
@@ -105,6 +110,9 @@ class Factory extends Component {
             </div>
           )}
           <NumberRangeControl
+            renderNotification={this.props.renderNotification}
+            lockGenerateButton={this.props.lockGenerateButton}
+            lockGenerate={this.props.lockGenerate}
             factory={this.props.factory}
             handleEmit={this.props.handleEmit}
           />
@@ -126,12 +134,18 @@ class Factory extends Component {
 }
 
 Factory.propTypes = {
+  renderNotification: PropTypes.func.isRequired,
+  lockGenerateButton: PropTypes.func.isRequired,
   handleEmit: PropTypes.func.isRequired,
-  factory: PropTypes.object.isRequired
+  factory: PropTypes.object.isRequired,
+  lockGenerate: PropTypes.bool
 };
 
 Factory.defaultProps = {
+  renderNotification: null,
+  lockGenerateButton: null,
   handleEmit: null,
-  factory: null
+  factory: null,
+  lockGenerate: false
 };
 export default Factory;

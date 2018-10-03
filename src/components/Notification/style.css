@@ -1,0 +1,33 @@
+.notification {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  margin-left: calc((80vw / 2) * -1);
+  width: 80vw;
+  height: 30px;
+  border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  -ms-border-radius: 0 0 5px 5px;
+  -o-border-radius: 0 0 5px 5px;
+}
+
+.notification.info {
+  border: solid 1px #49a0b5;
+  border-top: none;
+}
+
+.notification.warning {
+  border: solid 2px #eab940;
+  border-top: none;
+}
+
+.notification.danger {
+  border: solid 2px #cc444a;
+  border-top: none;
+}
+
+.notification.success {
+  border: solid 2px #51a451;
+  border-top: none;
+}

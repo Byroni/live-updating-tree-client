@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ButtonPair from "../ButtonPair";
 import { validate } from "../../helpers/validator";
 
@@ -9,9 +10,10 @@ class NumberRangeControl extends Component {
     this.state = {
       editable: false,
       mouseHover: false,
-      numNodes: 0,
-      lowerBound: 0,
-      upperBound: 0
+      numNodes: 1,
+      lowerBound: 1,
+      upperBound: 10,
+      lockGenerate: false
     };
 
     this.generateChildren = this.generateChildren.bind(this);
@@ -22,11 +24,39 @@ class NumberRangeControl extends Component {
   componentDidMount() {
     if (this.props.factory.children != null) {
       this.setState({
-        // TODO: should only be up to 15
         numNodes: this.props.factory.children.length,
         lowerBound: Math.min(...this.props.factory.children),
         upperBound: Math.max(...this.props.factory.children)
       });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      !this.props.lockGenerate &&
+      prevProps.lockGenerate &&
+      this.state.lockGenerate
+    ) {
+      this.setState({ lockGenerate: false });
+    }
+
+    if (
+      this.props.factory.children != null &&
+      prevProps.factory.children != null
+    ) {
+      let lowerBound = Math.min(...this.props.factory.children);
+      let prevLowerBound = Math.min(...prevProps.factory.children);
+      let upperBound = Math.max(...this.props.factory.children);
+      let prevUpperBound = Math.max(...prevProps.factory.children);
+
+      if (
+        this.props.factory.children.length !== prevProps.factory.children.length
+      )
+        this.setState({ numNodes: this.props.factory.children.length });
+      if (lowerBound !== prevLowerBound)
+        this.setState({ lowerBound: lowerBound });
+      if (upperBound !== prevUpperBound)
+        this.setState({ upperBound: upperBound });
     }
   }
 
@@ -43,21 +73,21 @@ class NumberRangeControl extends Component {
   }
 
   generateChildren() {
-    this.props.handleEmit("generateChildren", {
-      id: this.props.factory.id,
-      numNodes: this.state.numNodes,
-      lowerBound: this.state.lowerBound,
-      upperBound: this.state.upperBound
-    });
-  }
-
-  resetNumberRangeControl() {
-    this.setState({
-      numNodes: this.props.factory.length,
-      lowerBound: Math.min(...this.props.factory.children),
-      upperBound: Math.max(...this.props.factory.children)
-    });
-    this.flipEditable();
+    if (this.state.lockGenerate === false) {
+      this.props.lockGenerateButton();
+      this.setState({ lockGenerate: true });
+      this.props.handleEmit("generateChildren", {
+        id: this.props.factory.id,
+        numNodes: this.state.numNodes,
+        lowerBound: this.state.lowerBound,
+        upperBound: this.state.upperBound
+      });
+    } else {
+      this.props.renderNotification(
+        "warning",
+        "Waiting on previous generation to finish"
+      );
+    }
   }
 
   handleEmptyInput(keys) {
@@ -68,9 +98,16 @@ class NumberRangeControl extends Component {
     });
   }
 
+  //  Handles case when lowerbound > upperbound
   handleConstraints() {
-    if (parseInt(this.state.lowerBound) > parseInt(this.state.upperBound)) {
+    if (
+      parseInt(this.state.lowerBound, 10) > parseInt(this.state.upperBound, 10)
+    ) {
       this.setState({ lowerBound: 1, upperBound: 10 });
+      this.props.renderNotification(
+        "warning",
+        "Lower bound must not be greater than upper bound"
+      );
     }
   }
 
@@ -83,8 +120,6 @@ class NumberRangeControl extends Component {
   renderDisplay() {
     let displayText = `{Nodes: ${this.state.numNodes} 
     | Range: ${this.state.lowerBound} - ${this.state.upperBound}}`;
-
-    if (this.state.numNodes === 0) displayText = "{Empty!}";
 
     return (
       <div
@@ -121,6 +156,11 @@ class NumberRangeControl extends Component {
                   e.target.value === ""
                 ) {
                   this.setState({ numNodes: e.target.value });
+                } else {
+                  this.props.renderNotification(
+                    "warning",
+                    "# of children should be a number between 1 - 15 (invlusive)"
+                  );
                 }
               }}
             />
@@ -136,6 +176,11 @@ class NumberRangeControl extends Component {
                   e.target.value === ""
                 ) {
                   this.setState({ lowerBound: e.target.value });
+                } else {
+                  this.props.renderNotification(
+                    "warning",
+                    "Lower bound must be a number between 1 - 999 (inclusive)"
+                  );
                 }
               }}
             />
@@ -150,6 +195,11 @@ class NumberRangeControl extends Component {
                   e.target.value === ""
                 ) {
                   this.setState({ upperBound: e.target.value });
+                } else {
+                  this.props.renderNotification(
+                    "warning",
+                    "Upper bound must be a number between 1 - 999 (inclusive)"
+                  );
                 }
               }}
             />
@@ -179,6 +229,20 @@ class NumberRangeControl extends Component {
   }
 }
 
-// TODO: Proptypes
+NumberRangeControl.propTypes = {
+  renderNotification: PropTypes.func.isRequired,
+  lockGenerateButton: PropTypes.func.isRequired,
+  lockGenerate: PropTypes.bool.isRequired,
+  factory: PropTypes.object.isRequired,
+  handleEmit: PropTypes.func.isRequired
+};
+
+NumberRangeControl.defaultProps = {
+  renderNotification: null,
+  lockGenerateButton: null,
+  lockGenerate: false,
+  factory: null,
+  handleEmit: null
+};
 
 export default NumberRangeControl;

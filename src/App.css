@@ -2,6 +2,7 @@
 @import "./components/Factory/style.css";
 @import "./components/ButtonPair/style.css";
 @import "./components/NumberRangeControl/style.css";
+@import "./components/Notification/style.css";
 
 .main {
   margin: 5vh 15vw;
@@ -29,4 +30,9 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+}
+
+.root-name {
+  font-size: 30px;
+  margin-bottom: 10px;
 }
