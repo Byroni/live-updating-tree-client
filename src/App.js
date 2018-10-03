@@ -23,7 +23,6 @@ class App extends Component {
     };
 
     connect(
-      // "http://localhost:5000/",
       SERVER_URL,
       this.eventHandler
     );
@@ -37,17 +36,8 @@ class App extends Component {
     handleGetTree: tree => {
       this.setState({ tree });
     },
-    handleGenerateChildren: (id, children) => {
-      let state = update(this.state.tree, {
-        root: {
-          [id]: {
-            children: {
-              $set: children
-            }
-          }
-        }
-      });
-      this.setState({ tree: state });
+    handleGenerateChildren: tree => {
+      this.setState({ tree });
     },
     handleChangeFactoryName: tree => {
       this.setState({ tree });
